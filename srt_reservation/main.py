@@ -161,7 +161,9 @@ class SRT:
         while True:
             for i in range(1, self.num_trains_to_check+1):
                 try:
-                    standard_seat = self.driver.find_element(By.CSS_SELECTOR, f"#result-form > fieldset > div.tbl_wrap.th_thead > table > tbody > tr:nth-child({i}) > td:nth-child(7)").text
+                    if i != 3 :
+                        continue
+                    standard_seat = self.driver.find_element(By.CSS_SELECTOR, f"#result-form > fieldset > div.tbl_wrap.th_thead > table > tbody > tr:nth-child({i}) > td:nth-child(6)").text
                     reservation = self.driver.find_element(By.CSS_SELECTOR, f"#result-form > fieldset > div.tbl_wrap.th_thead > table > tbody > tr:nth-child({i}) > td:nth-child(8)").text
                 except StaleElementReferenceException:
                     standard_seat = "매진"
@@ -177,7 +179,7 @@ class SRT:
                 return self.driver
 
             else:
-                time.sleep(randint(2, 4))
+                time.sleep(randint(3, 5))
                 self.refresh_result()
 
     def run(self, login_id, login_psw):
